@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ben-Ami Auto Care × Shopify — Tech Discovery & Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0A0A0A;
+    --surface:#141414;
+    --surface-2:#1C1C1C;
+    --surface-3:#272727;
+    --line:rgba(255,255,255,0.08);
+    --line-strong:rgba(255,255,255,0.14);
+    --text:#F5F5F5;
+    --muted:#9A9A9A;
+    --dim:#5A5A5A;
+    --brand:#C8102E;            /* Ben-Ami automotive red */
+    --brand-dark:#8B0A1F;
+    --brand-glow:rgba(200,16,46,0.18);
+    --shopify:#95BF47;
+    --r:14px;
+    --r-sm:8px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;overflow:hidden;letter-spacing:-.005em;-webkit-font-smoothing:antialiased}
+
+  .deck{position:relative;width:100vw;height:100vh}
+
+  .slide{
+    position:absolute;inset:0;
+    padding:64px 88px;
+    opacity:0;transform:translateX(40px);
+    transition:opacity .4s ease, transform .4s ease;
+    pointer-events:none;
+    display:flex;flex-direction:column;
+    overflow:hidden;
+  }
+  .slide.active{opacity:1;transform:translateX(0);pointer-events:auto}
+  .slide.exit{opacity:0;transform:translateX(-40px)}
+
+  .container{width:100%;max-width:1280px;margin:0 auto;flex:1;display:flex;flex-direction:column;justify-content:center}
+
+  /* shared header strip */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:56px;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 28px;
+    background:linear-gradient(180deg,rgba(10,10,10,.92),rgba(10,10,10,.55));
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    z-index:50;
+  }
+  .topbar .left{display:flex;align-items:center;gap:14px}
+  .topbar .logo{
+    width:32px;height:32px;border-radius:6px;
+    background:#fff;
+    background-image:url('https://cdn.solo.to/user/a/647db2471f2fc5_11214293.jpg');
+    background-size:cover;background-position:center;
+    border:1px solid var(--line-strong);
+  }
+  .topbar .name{font-weight:600;font-size:13px;letter-spacing:.01em}
+  .topbar .cross{color:var(--dim);font-weight:300}
+  .topbar .shopify-wm{font-weight:600;font-size:13px;color:var(--shopify);letter-spacing:.01em}
+  .topbar .date{font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+
+  /* progress bar */
+  .progress{position:fixed;top:56px;left:0;right:0;height:2px;background:rgba(255,255,255,.05);z-index:49}
+  .progress .fill{height:100%;background:var(--brand);width:0;transition:width .4s ease}
+
+  /* footer / nav */
+  .footer{
+    position:fixed;bottom:24px;left:28px;right:28px;
+    display:flex;align-items:center;justify-content:space-between;
+    z-index:50;font-size:12px;color:var(--muted);
+  }
+  .keyhint{letter-spacing:.04em}
+  .keyhint kbd{display:inline-block;border:1px solid var(--line-strong);border-radius:4px;padding:2px 6px;font-family:inherit;font-size:11px;background:var(--surface-2);color:var(--text);margin:0 2px}
+  .nav{display:flex;align-items:center;gap:10px}
+  .nav button{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--surface-2);border:1px solid var(--line-strong);
+    color:var(--text);font-size:14px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .nav button:hover{background:var(--surface-3);border-color:var(--brand)}
+  .nav .count{font-variant-numeric:tabular-nums;color:var(--muted);min-width:42px;text-align:center}
+
+  /* typography */
+  .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:18px}
+  h1{font-size:64px;line-height:1.05;font-weight:800;letter-spacing:-.025em;margin-bottom:18px}
+  h2{font-size:44px;line-height:1.1;font-weight:800;letter-spacing:-.022em;margin-bottom:14px}
+  h3{font-size:18px;font-weight:600;letter-spacing:-.01em;margin-bottom:10px}
+  p{font-size:16px;line-height:1.55;color:var(--text)}
+  .lead{font-size:20px;line-height:1.5;color:var(--muted);max-width:780px}
+  .footnote{font-size:13px;color:var(--dim)}
+
+  /* title slide */
+  .slide.title .container{justify-content:center;align-items:center;text-align:center}
+  .slide.title .hero{
+    width:120px;height:120px;border-radius:18px;
+    background:#fff;
+    background-image:url('https://cdn.solo.to/user/a/647db2471f2fc5_11214293.jpg');
+    background-size:cover;background-position:center;
+    border:1px solid var(--line-strong);
+    box-shadow:0 8px 32px rgba(0,0,0,.45), 0 0 0 1px var(--brand-glow);
+    margin:0 auto 36px;
+  }
+  .slide.title h1{font-size:72px;margin-bottom:14px}
+  .slide.title .x{color:var(--dim);font-weight:300;font-size:54px;margin:0 12px;vertical-align:0}
+  .slide.title .shopify-word{color:var(--shopify)}
+  .slide.title .subtitle{color:var(--muted);font-size:22px;margin-top:20px;font-weight:400}
+  .slide.title .meta{color:var(--dim);font-size:14px;margin-top:48px;letter-spacing:.08em;text-transform:uppercase}
+
+  /* radial backdrop for title */
+  .slide.title::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at 50% 38%, var(--brand-glow), transparent 55%);
+    pointer-events:none;
+  }
+
+  /* objective slide */
+  .objective-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:32px}
+  .objective-card{
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r);padding:28px 28px;
+  }
+  .objective-card .label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-weight:600}
+  .objective-card .body{font-size:17px;line-height:1.5;color:var(--text)}
+  .objective-card.accent{border-left:3px solid var(--brand)}
+
+  /* learned grid */
+  .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:28px}
+  .stat{
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r);padding:22px 22px;
+  }
+  .stat .num{font-size:34px;font-weight:800;letter-spacing:-.02em;color:var(--text);margin-bottom:4px}
+  .stat .num .unit{color:var(--brand);font-size:22px;font-weight:700;margin-left:2px}
+  .stat .lbl{font-size:13px;color:var(--muted);line-height:1.4}
+
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}
+  .col-card{
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r);padding:26px;
+  }
+  .col-card .h{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:14px}
+  .col-card ul{list-style:none}
+  .col-card li{
+    position:relative;padding:9px 0 9px 22px;
+    font-size:15px;line-height:1.5;color:var(--text);
+    border-bottom:1px solid var(--line);
+  }
+  .col-card li:last-child{border-bottom:0}
+  .col-card li::before{
+    content:"";position:absolute;left:0;top:17px;
+    width:8px;height:8px;border-radius:50%;
+    background:var(--brand);
+  }
+  .col-card li .k{color:var(--muted);font-size:13px;display:block;margin-top:2px}
+
+  /* agenda */
+  .agenda-list{margin-top:28px;display:flex;flex-direction:column;gap:12px}
+  .agenda-item{
+    display:grid;grid-template-columns:42px 1fr;gap:18px;
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r);padding:20px 22px;
+    align-items:center;
+  }
+  .agenda-item .n{
+    width:32px;height:32px;border-radius:50%;
+    background:var(--brand);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:14px;
+  }
+  .agenda-item .title{font-size:16px;font-weight:600;color:var(--text)}
+  .agenda-item .desc{font-size:14px;color:var(--muted);margin-top:2px;line-height:1.45}
+
+  /* MAP */
+  .map-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+  .phase{
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r);padding:24px;
+    display:flex;flex-direction:column;
+    position:relative;overflow:hidden;
+  }
+  .phase::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--brand);
+  }
+  .phase .pname{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);font-weight:700;margin-bottom:6px}
+  .phase .pdate{font-size:13px;color:var(--muted);margin-bottom:16px;font-variant-numeric:tabular-nums}
+  .phase ul{list-style:none;flex:1}
+  .phase li{
+    font-size:14px;line-height:1.45;color:var(--text);
+    padding:8px 0 8px 14px;position:relative;
+    border-top:1px solid var(--line);
+  }
+  .phase li:first-child{border-top:0}
+  .phase li::before{
+    content:"";position:absolute;left:0;top:14px;
+    width:5px;height:5px;border-radius:50%;background:var(--muted);
+  }
+  .phase.golive{border:1px solid var(--brand)}
+  .phase.golive::before{height:4px}
+  .phase.golive .pname{color:#fff}
+  .phase .target{
+    margin-top:16px;padding-top:14px;border-top:1px solid var(--line);
+    font-size:13px;color:var(--muted);
+  }
+  .phase .target b{color:var(--text);font-weight:600}
+
+  /* small screen guard */
+  @media (max-width: 960px){
+    .slide{padding:80px 28px 80px}
+    h1{font-size:44px}.slide.title h1{font-size:46px}
+    h2{font-size:30px}
+    .stat-row{grid-template-columns:repeat(2,1fr)}
+    .two-col,.objective-grid,.map-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="left">
+    <div class="logo" aria-hidden="true"></div>
+    <div class="name">Ben-Ami Auto Care</div>
+    <div class="cross">×</div>
+    <div class="shopify-wm">Shopify</div>
+  </div>
+  <div class="date">Tech Discovery — May 26, 2026</div>
+</div>
+
+<div class="progress"><div class="fill" id="progFill"></div></div>
+
+<div class="deck" id="deck">
+
+  <!-- 1. Title -->
+  <section class="slide title active">
+    <div class="container">
+      <div class="hero" aria-hidden="true"></div>
+      <h1>Ben-Ami Auto Care<span class="x">×</span><span class="shopify-word">Shopify</span></h1>
+      <div class="subtitle">Tech Discovery &amp; Demo</div>
+      <div class="meta">Tuesday · May 26, 2026</div>
+    </div>
+  </section>
+
+  <!-- 2. Strategic Objective -->
+  <section class="slide">
+    <div class="container">
+      <div class="eyebrow">Strategic Objective</div>
+      <h2>Replace the rep-managed buying experience with a B2B portal that scales with Ben-Ami.</h2>
+      <p class="lead">Modern self-service for body shops and detail accounts, an ERP-native two-way connection to Microsoft Business Central, and the operational lift to absorb growth without expanding back-office labor — live before BFCM 2026.</p>
+      <div class="objective-grid">
+        <div class="objective-card accent">
+          <div class="label">For Ben-Ami</div>
+          <div class="body">Retain customers drifting to Amazon, eliminate manual order entry and AR chase work, and surface real-time account status to every customer.</div>
+        </div>
+        <div class="objective-card accent">
+          <div class="label">For the customer</div>
+          <div class="body">An Amazon-quality buying experience inside the Ben-Ami portal — search, custom pricing, scan-to-order, and account visibility — open 24/7.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. What we learned — Business -->
+  <section class="slide">
+    <div class="container">
+      <div class="eyebrow">What we've learned — Business</div>
+      <h2>A concentrated, high-frequency wholesale book with clear revenue at risk.</h2>
+      <div class="stat-row">
+        <div class="stat"><div class="num">920<span class="unit">accts</span></div><div class="lbl">~800 body shops, ~120 car wash &amp; detail</div></div>
+        <div class="stat"><div class="num">3,000<span class="unit">+ SKUs</span></div><div class="lbl">Across 8 pricing tiers and 30 promotions</div></div>
+        <div class="stat"><div class="num">$330K</div><div class="lbl">Top customer · #2 at $100K · top 20 each over $50K</div></div>
+        <div class="stat"><div class="num">Sept&nbsp;1<span class="unit">·26</span></div><div class="lbl">Go-live target, ahead of BFCM</div></div>
+      </div>
+      <div class="two-col">
+        <div class="col-card">
+          <div class="h">Customer behavior</div>
+          <ul>
+            <li>Top 20 reorder weekly or bi-weekly<span class="k">Highest-value accounts move on tight cycles</span></li>
+            <li>10 customers on custom pricing across ~300 SKUs<span class="k">Three paint toner brands — non-negotiable</span></li>
+            <li>Customers expect Amazon-grade self-service<span class="k">"Make your system like Amazon's system" — Steven</span></li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <div class="h">Pain to remove</div>
+          <ul>
+            <li>Revenue leakage to Amazon on covered SKUs<span class="k">Every order on Amazon is one Ben-Ami doesn't get to retain</span></li>
+            <li>Manual order entry from phone, text, email<span class="k">Hours of rep + office time daily</span></li>
+            <li>AR collections handled outside the customer<span class="k">No portal visibility for balance or terms today</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. What we learned — Technical & decisions -->
+  <section class="slide">
+    <div class="container">
+      <div class="eyebrow">What we've learned — Technical &amp; decisions locked in</div>
+      <h2>The technical foundation is largely in place, and the operating model is settled.</h2>
+      <div class="two-col">
+        <div class="col-card">
+          <div class="h">Stack &amp; integrations</div>
+          <ul>
+            <li>Microsoft Business Central — 90–95% complete<span class="k">Implemented by Avacon, will be system of record</span></li>
+            <li>ShipStation in place for logistics<span class="k">Stays on Shopify</span></li>
+            <li>Klaviyo on the shortlist for email &amp; SMS<span class="k">Tier and SMS decision still open</span></li>
+            <li>Replacing WooCommerce + Now Commerce<span class="k">BigCommerce build was abandoned; arbitration in motion</span></li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <div class="h">Decisions already made</div>
+          <ul>
+            <li>Partner engagement = billable hours with itemized data logs<span class="k">Settled — non-time-and-materials proposals will be declined</span></li>
+            <li>Matthew owns all internal data migration<span class="k">Partner doesn't need to learn the business deeply</span></li>
+            <li>Avacon owns the Business Central side of the integration<span class="k">Partner handles design + web build only</span></li>
+            <li>Hybrid order capture is non-negotiable<span class="k">Customers self-serve by default; reps place orders inside accounts</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Today's agenda -->
+  <section class="slide">
+    <div class="container">
+      <div class="eyebrow">Today's agenda</div>
+      <h2>One hour. Three blocks. One next step.</h2>
+      <div class="agenda-list">
+        <div class="agenda-item">
+          <div class="n">1</div>
+          <div>
+            <div class="title">Recap and alignment</div>
+            <div class="desc">Confirm the business picture from last week, surface anything that's changed, and tee up the technical discovery.</div>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="n">2</div>
+          <div>
+            <div class="title">Technical discovery — led by Jeff St. Pierre, Solutions Engineer</div>
+            <div class="desc">Tell-show-tell walkthrough of Shopify Plus B2B against Ben-Ami's stack: catalog, custom pricing, hybrid order capture, Business Central integration, scan-to-order, ShipStation, Klaviyo.</div>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="n">3</div>
+          <div>
+            <div class="title">Tailored demo — wholesale distributor on Business Central</div>
+            <div class="desc">Walk the buyer experience and the rep experience inside an environment that mirrors Ben-Ami's model.</div>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="n">4</div>
+          <div>
+            <div class="title">Mutual action plan and next step</div>
+            <div class="desc">Lock the partner introduction working session, the plan decision, and confirm September 1 is still the target.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Mutual Action Plan -->
+  <section class="slide">
+    <div class="container">
+      <div class="eyebrow">Mutual Action Plan — working back from September 1, 2026</div>
+      <h2>Discover · Decide · Deliver</h2>
+      <div class="map-grid">
+        <div class="phase">
+          <div class="pname">Discover</div>
+          <div class="pdate">May 26 – June 5</div>
+          <ul>
+            <li>Today's tech discovery and tailored demo</li>
+            <li>Technical requirements doc completed by Ben-Ami</li>
+            <li>Avacon connector scope confirmed with Jeff</li>
+            <li>1–2 implementation partner candidates short-listed</li>
+          </ul>
+          <div class="target"><b>Exit gate:</b> Partner shortlist + plan decision direction (Advanced vs Plus).</div>
+        </div>
+        <div class="phase">
+          <div class="pname">Decide</div>
+          <div class="pdate">June 8 – June 19</div>
+          <ul>
+            <li>Partner working sessions with Steven &amp; Matthew</li>
+            <li>SOW scoped on billable-hours basis with data logs</li>
+            <li>Shopify plan signed (Advanced or Plus)</li>
+            <li>Klaviyo tier finalized; tax tooling path chosen</li>
+          </ul>
+          <div class="target"><b>Exit gate:</b> Partner SOW signed, Shopify contract signed.</div>
+        </div>
+        <div class="phase golive">
+          <div class="pname">Deliver</div>
+          <div class="pdate">June 22 – Sept 1</div>
+          <ul>
+            <li>Theme build &amp; data migration in parallel</li>
+            <li>Business Central ↔ Shopify integration certified by Avacon</li>
+            <li>UAT with top-20 customers, scan-to-order pilot</li>
+            <li>Soft launch, then hard launch</li>
+          </ul>
+          <div class="target"><b>Go-live:</b> <span style="color:var(--text)">September 1, 2026</span> — ahead of BFCM.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  <div class="keyhint">Use <kbd>←</kbd> <kbd>→</kbd> to navigate</div>
+  <div class="nav">
+    <button id="prev" aria-label="Previous">‹</button>
+    <span class="count" id="count">1 / 6</span>
+    <button id="next" aria-label="Next">›</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const fill = document.getElementById('progFill');
+  const countEl = document.getElementById('count');
+  let idx = 0;
+  function render(){
+    slides.forEach((s,i) => {
+      s.classList.remove('active','exit');
+      if (i === idx) s.classList.add('active');
+      else if (i < idx) s.classList.add('exit');
+    });
+    fill.style.width = ((idx + 1) / slides.length * 100) + '%';
+    countEl.textContent = (idx + 1) + ' / ' + slides.length;
+  }
+  function go(delta){
+    const n = idx + delta;
+    if (n < 0 || n >= slides.length) return;
+    idx = n; render();
+  }
+  document.getElementById('prev').addEventListener('click', () => go(-1));
+  document.getElementById('next').addEventListener('click', () => go(1));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(-1); }
+    else if (e.key === 'Home') { idx = 0; render(); }
+    else if (e.key === 'End') { idx = slides.length - 1; render(); }
+  });
+  render();
+})();
+</script>
+</body>
+</html>
