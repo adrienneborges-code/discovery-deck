@@ -18,10 +18,10 @@
     --text:#F5F5F5;
     --muted:#9A9A9A;
     --dim:#5A5A5A;
-    --brand:#C8102E;            /* Ben-Ami automotive red */
-    --brand-dark:#8B0A1F;
-    --brand-glow:rgba(200,16,46,0.18);
     --shopify:#95BF47;
+    --shopify-dark:#7BA03A;
+    --shopify-glow:rgba(149,191,71,0.16);
+    --amber:#F5B547;
     --r:14px;
     --r-sm:8px;
   }
@@ -33,7 +33,7 @@
 
   .slide{
     position:absolute;inset:0;
-    padding:64px 88px;
+    padding:80px 88px 80px;
     opacity:0;transform:translateX(40px);
     transition:opacity .4s ease, transform .4s ease;
     pointer-events:none;
@@ -55,22 +55,19 @@
     border-bottom:1px solid var(--line);
     z-index:50;
   }
-  .topbar .left{display:flex;align-items:center;gap:14px}
-  .topbar .logo{
-    width:32px;height:32px;border-radius:6px;
-    background:#fff;
-    background-image:url('https://cdn.solo.to/user/a/647db2471f2fc5_11214293.jpg');
-    background-size:cover;background-position:center;
-    border:1px solid var(--line-strong);
+  .topbar .left{display:flex;align-items:center;gap:12px}
+  .topbar .shopify-mark{
+    display:flex;align-items:center;gap:8px;
+    font-weight:700;font-size:14px;color:var(--shopify);letter-spacing:-.005em;
   }
-  .topbar .name{font-weight:600;font-size:13px;letter-spacing:.01em}
-  .topbar .cross{color:var(--dim);font-weight:300}
-  .topbar .shopify-wm{font-weight:600;font-size:13px;color:var(--shopify);letter-spacing:.01em}
+  .topbar .shopify-mark svg{width:20px;height:22px}
+  .topbar .sep{color:var(--dim);font-weight:300;font-size:13px}
+  .topbar .ctx{font-weight:500;font-size:13px;color:var(--muted);letter-spacing:.01em}
   .topbar .date{font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
 
   /* progress bar */
   .progress{position:fixed;top:56px;left:0;right:0;height:2px;background:rgba(255,255,255,.05);z-index:49}
-  .progress .fill{height:100%;background:var(--brand);width:0;transition:width .4s ease}
+  .progress .fill{height:100%;background:var(--shopify);width:0;transition:width .4s ease}
 
   /* footer / nav */
   .footer{
@@ -88,39 +85,35 @@
     display:flex;align-items:center;justify-content:center;
     transition:background .2s ease, border-color .2s ease;
   }
-  .nav button:hover{background:var(--surface-3);border-color:var(--brand)}
+  .nav button:hover{background:var(--surface-3);border-color:var(--shopify)}
   .nav .count{font-variant-numeric:tabular-nums;color:var(--muted);min-width:42px;text-align:center}
 
   /* typography */
-  .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:18px}
+  .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--shopify);font-weight:600;margin-bottom:18px}
   h1{font-size:64px;line-height:1.05;font-weight:800;letter-spacing:-.025em;margin-bottom:18px}
-  h2{font-size:44px;line-height:1.1;font-weight:800;letter-spacing:-.022em;margin-bottom:14px}
+  h2{font-size:42px;line-height:1.12;font-weight:800;letter-spacing:-.022em;margin-bottom:14px}
   h3{font-size:18px;font-weight:600;letter-spacing:-.01em;margin-bottom:10px}
   p{font-size:16px;line-height:1.55;color:var(--text)}
-  .lead{font-size:20px;line-height:1.5;color:var(--muted);max-width:780px}
+  .lead{font-size:19px;line-height:1.55;color:var(--muted);max-width:840px}
   .footnote{font-size:13px;color:var(--dim)}
+
+  /* shopify wordmark/logo svg */
+  .s-mark{display:inline-block;vertical-align:middle}
 
   /* title slide */
   .slide.title .container{justify-content:center;align-items:center;text-align:center}
-  .slide.title .hero{
-    width:120px;height:120px;border-radius:18px;
-    background:#fff;
-    background-image:url('https://cdn.solo.to/user/a/647db2471f2fc5_11214293.jpg');
-    background-size:cover;background-position:center;
-    border:1px solid var(--line-strong);
-    box-shadow:0 8px 32px rgba(0,0,0,.45), 0 0 0 1px var(--brand-glow);
-    margin:0 auto 36px;
-  }
-  .slide.title h1{font-size:72px;margin-bottom:14px}
-  .slide.title .x{color:var(--dim);font-weight:300;font-size:54px;margin:0 12px;vertical-align:0}
-  .slide.title .shopify-word{color:var(--shopify)}
-  .slide.title .subtitle{color:var(--muted);font-size:22px;margin-top:20px;font-weight:400}
-  .slide.title .meta{color:var(--dim);font-size:14px;margin-top:48px;letter-spacing:.08em;text-transform:uppercase}
+  .slide.title .shopify-hero{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:34px}
+  .slide.title .shopify-hero svg{width:54px;height:60px}
+  .slide.title .shopify-hero .wm{font-size:32px;font-weight:700;letter-spacing:-.02em;color:var(--shopify)}
+  .slide.title h1{font-size:64px;margin-bottom:14px;color:var(--text)}
+  .slide.title .x{color:var(--dim);font-weight:300;font-size:50px;margin:0 14px;vertical-align:1px}
+  .slide.title .subtitle{color:var(--muted);font-size:21px;margin-top:18px;font-weight:400}
+  .slide.title .meta{color:var(--dim);font-size:13px;margin-top:42px;letter-spacing:.08em;text-transform:uppercase}
 
   /* radial backdrop for title */
   .slide.title::before{
     content:"";position:absolute;inset:0;
-    background:radial-gradient(ellipse at 50% 38%, var(--brand-glow), transparent 55%);
+    background:radial-gradient(ellipse at 50% 38%, var(--shopify-glow), transparent 55%);
     pointer-events:none;
   }
 
@@ -132,24 +125,43 @@
   }
   .objective-card .label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-weight:600}
   .objective-card .body{font-size:17px;line-height:1.5;color:var(--text)}
-  .objective-card.accent{border-left:3px solid var(--brand)}
+  .objective-card.accent{border-left:3px solid var(--shopify)}
 
-  /* learned grid */
-  .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:28px}
-  .stat{
+  /* business narrative slide */
+  .narrative-lead{
+    font-size:19px;line-height:1.55;color:var(--text);max-width:880px;
+    margin-top:10px;margin-bottom:28px;
+  }
+  .narrative-lead .hi{color:var(--shopify);font-weight:600}
+  .trend-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:6px}
+  .trend{
     background:var(--surface);border:1px solid var(--line);
     border-radius:var(--r);padding:22px 22px;
+    display:flex;flex-direction:column;gap:8px;
   }
-  .stat .num{font-size:34px;font-weight:800;letter-spacing:-.02em;color:var(--text);margin-bottom:4px}
-  .stat .num .unit{color:var(--brand);font-size:22px;font-weight:700;margin-left:2px}
-  .stat .lbl{font-size:13px;color:var(--muted);line-height:1.4}
+  .trend .tlbl{
+    font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--shopify);font-weight:700;
+  }
+  .trend .thead{font-size:16px;font-weight:700;color:var(--text);line-height:1.3;letter-spacing:-.01em}
+  .trend .tbody{font-size:14px;line-height:1.5;color:var(--muted)}
+  .destination{
+    margin-top:24px;padding:22px 26px;
+    background:linear-gradient(135deg,rgba(149,191,71,.07),transparent);
+    border:1px solid rgba(149,191,71,.25);
+    border-left:3px solid var(--shopify);
+    border-radius:var(--r);
+  }
+  .destination .dlbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--shopify);font-weight:700;margin-bottom:8px}
+  .destination .dbody{font-size:16.5px;line-height:1.55;color:var(--text)}
 
+  /* technical learned grid */
   .two-col{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}
   .col-card{
     background:var(--surface);border:1px solid var(--line);
     border-radius:var(--r);padding:26px;
   }
-  .col-card .h{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:14px}
+  .col-card .h{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--shopify);font-weight:600;margin-bottom:14px}
   .col-card ul{list-style:none}
   .col-card li{
     position:relative;padding:9px 0 9px 22px;
@@ -160,7 +172,7 @@
   .col-card li::before{
     content:"";position:absolute;left:0;top:17px;
     width:8px;height:8px;border-radius:50%;
-    background:var(--brand);
+    background:var(--shopify);
   }
   .col-card li .k{color:var(--muted);font-size:13px;display:block;margin-top:2px}
 
@@ -174,53 +186,95 @@
   }
   .agenda-item .n{
     width:32px;height:32px;border-radius:50%;
-    background:var(--brand);color:#fff;
+    background:var(--shopify);color:#0A0A0A;
     display:flex;align-items:center;justify-content:center;
-    font-weight:700;font-size:14px;
+    font-weight:800;font-size:14px;
   }
   .agenda-item .title{font-size:16px;font-weight:600;color:var(--text)}
   .agenda-item .desc{font-size:14px;color:var(--muted);margin-top:2px;line-height:1.45}
 
-  /* MAP */
-  .map-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
-  .phase{
-    background:var(--surface);border:1px solid var(--line);
-    border-radius:var(--r);padding:24px;
-    display:flex;flex-direction:column;
-    position:relative;overflow:hidden;
+  /* MAP — Christian Printers style */
+  .map-evaluation{
+    margin-top:18px;padding:18px 22px;
+    background:rgba(245,181,71,.06);
+    border:1px solid rgba(245,181,71,.22);
+    border-left:3px solid var(--amber);
+    border-radius:var(--r);
   }
-  .phase::before{
-    content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--brand);
+  .map-evaluation .elbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:8px}
+  .map-evaluation .ebody{font-size:15.5px;line-height:1.55;color:var(--text)}
+
+  .path-intro{margin-top:22px}
+  .path-intro h3{font-size:19px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:-.01em}
+  .path-intro p{font-size:14px;color:var(--muted);line-height:1.5}
+
+  .map-section{margin-top:18px}
+  .map-section .sec-label{
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    font-weight:700;padding-bottom:6px;margin-bottom:8px;
+    border-bottom:2px solid var(--line-strong);
   }
-  .phase .pname{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);font-weight:700;margin-bottom:6px}
-  .phase .pdate{font-size:13px;color:var(--muted);margin-bottom:16px;font-variant-numeric:tabular-nums}
-  .phase ul{list-style:none;flex:1}
-  .phase li{
-    font-size:14px;line-height:1.45;color:var(--text);
-    padding:8px 0 8px 14px;position:relative;
-    border-top:1px solid var(--line);
+  .map-section.discover .sec-label{color:var(--shopify);border-bottom-color:var(--shopify)}
+  .map-section.decide .sec-label{color:#9AB3E8;border-bottom-color:rgba(154,179,232,.4)}
+  .map-section.deliver .sec-label{color:#C49AE8;border-bottom-color:rgba(196,154,232,.4)}
+
+  .step{
+    display:grid;grid-template-columns:32px 1fr auto;gap:14px;
+    padding:11px 6px;border-bottom:1px solid var(--line);
+    align-items:center;
   }
-  .phase li:first-child{border-top:0}
-  .phase li::before{
-    content:"";position:absolute;left:0;top:14px;
-    width:5px;height:5px;border-radius:50%;background:var(--muted);
+  .step:last-child{border-bottom:0}
+  .step .marker{
+    width:24px;height:24px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:700;
+    background:var(--surface-2);color:var(--muted);
+    border:1px solid var(--line-strong);
   }
-  .phase.golive{border:1px solid var(--brand)}
-  .phase.golive::before{height:4px}
-  .phase.golive .pname{color:#fff}
-  .phase .target{
-    margin-top:16px;padding-top:14px;border-top:1px solid var(--line);
-    font-size:13px;color:var(--muted);
+  .step.done .marker{background:var(--shopify);color:#0A0A0A;border-color:var(--shopify)}
+  .step.today .marker{
+    background:transparent;color:var(--shopify);border:2px solid var(--shopify);
+    box-shadow:0 0 0 4px rgba(149,191,71,.15);
   }
-  .phase .target b{color:var(--text);font-weight:600}
+  .step .body{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .step .title-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .step .title{font-size:14.5px;font-weight:600;color:var(--text);letter-spacing:-.005em}
+  .step .today-pill{
+    display:inline-flex;align-items:center;gap:5px;
+    padding:2px 9px;border-radius:20px;
+    background:var(--shopify);color:#0A0A0A;
+    font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  }
+  .step .today-pill::before{content:"";width:6px;height:6px;border-radius:50%;background:#0A0A0A}
+  .step .desc{font-size:12.5px;color:var(--muted);line-height:1.45}
+  .step .status{
+    font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;white-space:nowrap;
+    text-align:right;
+  }
+  .step.done .status{color:var(--shopify)}
+  .step.today .status{color:var(--shopify);font-weight:800}
+
+  .map-footer{
+    margin-top:18px;padding-top:14px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:12px;color:var(--dim);
+  }
+  .map-footer .prep{letter-spacing:.01em}
+  .map-footer .note{letter-spacing:.01em}
+
+  /* MAP slide overrides spacing for density */
+  .slide.map-slide{padding-top:78px;padding-bottom:70px}
+  .slide.map-slide h2{font-size:32px;margin-bottom:4px}
+  .slide.map-slide .container{justify-content:flex-start}
 
   /* small screen guard */
   @media (max-width: 960px){
     .slide{padding:80px 28px 80px}
     h1{font-size:44px}.slide.title h1{font-size:46px}
     h2{font-size:30px}
-    .stat-row{grid-template-columns:repeat(2,1fr)}
-    .two-col,.objective-grid,.map-grid{grid-template-columns:1fr}
+    .trend-grid{grid-template-columns:1fr}
+    .two-col,.objective-grid{grid-template-columns:1fr}
   }
 </style>
 </head>
@@ -228,10 +282,16 @@
 
 <div class="topbar">
   <div class="left">
-    <div class="logo" aria-hidden="true"></div>
-    <div class="name">Ben-Ami Auto Care</div>
-    <div class="cross">×</div>
-    <div class="shopify-wm">Shopify</div>
+    <div class="shopify-mark">
+      <svg viewBox="0 0 109 124" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M74.7 23.5c0-.4-.3-.7-.5-.7-.3 0-5.4-.4-5.4-.4s-3.6-3.6-4-3.9c-.4-.4-1.1-.3-1.4-.2l-2 .6c-1.2-3.4-3.2-6.5-6.9-6.5h-.3c-1-1.4-2.3-2-3.4-2-8.7.3-12.9 11.2-14.2 16.7-3.4 1.1-5.8 1.8-6.1 1.9-1.9.6-2 .7-2.2 2.5-.2 1.4-5.2 39.8-5.2 39.8L62 79.6l21-4.5C83 75.1 74.7 23.9 74.7 23.5zM58.4 19.6c-.9.3-2 .6-3.1.9v-.7c0-2-.3-3.7-.7-5C56.4 15 57.6 17 58.4 19.6zm-6.3 5.3c-2.2.7-4.5 1.4-6.9 2.1.7-2.5 1.9-5.1 3.4-6.7.6-.6 1.4-1.3 2.3-1.7.9 1.9 1.2 4.5 1.2 6.3zm-2.5-12c.7 0 1.4.2 1.9.6-1.3.6-2.5 1.5-3.7 2.7-1.9 2.1-3.4 5.3-4 8.4-1.9.6-3.8 1.2-5.5 1.7 1.2-5.5 4.9-13.4 11.3-13.4z" fill="#95BF47"/>
+        <path d="M74.2 22.8c-.3 0-5.4-.4-5.4-.4s-3.6-3.6-4-3.9c-.2-.2-.4-.3-.6-.3l-3.6 76.1 23-5s-8.1-54.8-8.2-55.2c-.2-.9-1-1.2-1.2-1.3z" fill="#5E8E3E"/>
+        <path d="M54.7 33.9l-2.7 8.5s-2.5-1.4-5.6-1.4c-4.5 0-4.8 2.8-4.8 3.6 0 4.1 10.8 5.6 10.8 15.3 0 7.6-4.9 12.6-11.4 12.6-7.9 0-11.9-4.9-11.9-4.9l2.1-7s4.1 3.5 7.5 3.5c2.3 0 3.2-1.8 3.2-3.1 0-5.3-8.9-5.6-8.9-14.4 0-7.5 5.4-14.7 16.2-14.7 4.3 0 5.5.5 5.5.5z" fill="#fff"/>
+      </svg>
+      <span>Shopify</span>
+    </div>
+    <div class="sep">×</div>
+    <div class="ctx">Ben-Ami Auto Care</div>
   </div>
   <div class="date">Tech Discovery — May 26, 2026</div>
 </div>
@@ -243,97 +303,25 @@
   <!-- 1. Title -->
   <section class="slide title active">
     <div class="container">
-      <div class="hero" aria-hidden="true"></div>
-      <h1>Ben-Ami Auto Care<span class="x">×</span><span class="shopify-word">Shopify</span></h1>
+      <div class="shopify-hero">
+        <svg viewBox="0 0 109 124" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M74.7 23.5c0-.4-.3-.7-.5-.7-.3 0-5.4-.4-5.4-.4s-3.6-3.6-4-3.9c-.4-.4-1.1-.3-1.4-.2l-2 .6c-1.2-3.4-3.2-6.5-6.9-6.5h-.3c-1-1.4-2.3-2-3.4-2-8.7.3-12.9 11.2-14.2 16.7-3.4 1.1-5.8 1.8-6.1 1.9-1.9.6-2 .7-2.2 2.5-.2 1.4-5.2 39.8-5.2 39.8L62 79.6l21-4.5C83 75.1 74.7 23.9 74.7 23.5zM58.4 19.6c-.9.3-2 .6-3.1.9v-.7c0-2-.3-3.7-.7-5C56.4 15 57.6 17 58.4 19.6zm-6.3 5.3c-2.2.7-4.5 1.4-6.9 2.1.7-2.5 1.9-5.1 3.4-6.7.6-.6 1.4-1.3 2.3-1.7.9 1.9 1.2 4.5 1.2 6.3zm-2.5-12c.7 0 1.4.2 1.9.6-1.3.6-2.5 1.5-3.7 2.7-1.9 2.1-3.4 5.3-4 8.4-1.9.6-3.8 1.2-5.5 1.7 1.2-5.5 4.9-13.4 11.3-13.4z" fill="#95BF47"/>
+          <path d="M74.2 22.8c-.3 0-5.4-.4-5.4-.4s-3.6-3.6-4-3.9c-.2-.2-.4-.3-.6-.3l-3.6 76.1 23-5s-8.1-54.8-8.2-55.2c-.2-.9-1-1.2-1.2-1.3z" fill="#5E8E3E"/>
+          <path d="M54.7 33.9l-2.7 8.5s-2.5-1.4-5.6-1.4c-4.5 0-4.8 2.8-4.8 3.6 0 4.1 10.8 5.6 10.8 15.3 0 7.6-4.9 12.6-11.4 12.6-7.9 0-11.9-4.9-11.9-4.9l2.1-7s4.1 3.5 7.5 3.5c2.3 0 3.2-1.8 3.2-3.1 0-5.3-8.9-5.6-8.9-14.4 0-7.5 5.4-14.7 16.2-14.7 4.3 0 5.5.5 5.5.5z" fill="#fff"/>
+        </svg>
+        <div class="wm">Shopify</div>
+      </div>
+      <h1>Ben-Ami Auto Care<span class="x">×</span>Shopify</h1>
       <div class="subtitle">Tech Discovery &amp; Demo</div>
       <div class="meta">Tuesday · May 26, 2026</div>
     </div>
   </section>
 
-  <!-- 2. Strategic Objective -->
+  <!-- 2. Agenda -->
   <section class="slide">
     <div class="container">
-      <div class="eyebrow">Strategic Objective</div>
-      <h2>Replace the rep-managed buying experience with a B2B portal that scales with Ben-Ami.</h2>
-      <p class="lead">Modern self-service for body shops and detail accounts, an ERP-native two-way connection to Microsoft Business Central, and the operational lift to absorb growth without expanding back-office labor — live before BFCM 2026.</p>
-      <div class="objective-grid">
-        <div class="objective-card accent">
-          <div class="label">For Ben-Ami</div>
-          <div class="body">Retain customers drifting to Amazon, eliminate manual order entry and AR chase work, and surface real-time account status to every customer.</div>
-        </div>
-        <div class="objective-card accent">
-          <div class="label">For the customer</div>
-          <div class="body">An Amazon-quality buying experience inside the Ben-Ami portal — search, custom pricing, scan-to-order, and account visibility — open 24/7.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3. What we learned — Business -->
-  <section class="slide">
-    <div class="container">
-      <div class="eyebrow">What we've learned — Business</div>
-      <h2>A concentrated, high-frequency wholesale book with clear revenue at risk.</h2>
-      <div class="stat-row">
-        <div class="stat"><div class="num">920<span class="unit">accts</span></div><div class="lbl">~800 body shops, ~120 car wash &amp; detail</div></div>
-        <div class="stat"><div class="num">3,000<span class="unit">+ SKUs</span></div><div class="lbl">Across 8 pricing tiers and 30 promotions</div></div>
-        <div class="stat"><div class="num">$330K</div><div class="lbl">Top customer · #2 at $100K · top 20 each over $50K</div></div>
-        <div class="stat"><div class="num">Sept&nbsp;1<span class="unit">·26</span></div><div class="lbl">Go-live target, ahead of BFCM</div></div>
-      </div>
-      <div class="two-col">
-        <div class="col-card">
-          <div class="h">Customer behavior</div>
-          <ul>
-            <li>Top 20 reorder weekly or bi-weekly<span class="k">Highest-value accounts move on tight cycles</span></li>
-            <li>10 customers on custom pricing across ~300 SKUs<span class="k">Three paint toner brands — non-negotiable</span></li>
-            <li>Customers expect Amazon-grade self-service<span class="k">"Make your system like Amazon's system" — Steven</span></li>
-          </ul>
-        </div>
-        <div class="col-card">
-          <div class="h">Pain to remove</div>
-          <ul>
-            <li>Revenue leakage to Amazon on covered SKUs<span class="k">Every order on Amazon is one Ben-Ami doesn't get to retain</span></li>
-            <li>Manual order entry from phone, text, email<span class="k">Hours of rep + office time daily</span></li>
-            <li>AR collections handled outside the customer<span class="k">No portal visibility for balance or terms today</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. What we learned — Technical & decisions -->
-  <section class="slide">
-    <div class="container">
-      <div class="eyebrow">What we've learned — Technical &amp; decisions locked in</div>
-      <h2>The technical foundation is largely in place, and the operating model is settled.</h2>
-      <div class="two-col">
-        <div class="col-card">
-          <div class="h">Stack &amp; integrations</div>
-          <ul>
-            <li>Microsoft Business Central — 90–95% complete<span class="k">Implemented by Avacon, will be system of record</span></li>
-            <li>ShipStation in place for logistics<span class="k">Stays on Shopify</span></li>
-            <li>Klaviyo on the shortlist for email &amp; SMS<span class="k">Tier and SMS decision still open</span></li>
-            <li>Replacing WooCommerce + Now Commerce<span class="k">BigCommerce build was abandoned; arbitration in motion</span></li>
-          </ul>
-        </div>
-        <div class="col-card">
-          <div class="h">Decisions already made</div>
-          <ul>
-            <li>Partner engagement = billable hours with itemized data logs<span class="k">Settled — non-time-and-materials proposals will be declined</span></li>
-            <li>Matthew owns all internal data migration<span class="k">Partner doesn't need to learn the business deeply</span></li>
-            <li>Avacon owns the Business Central side of the integration<span class="k">Partner handles design + web build only</span></li>
-            <li>Hybrid order capture is non-negotiable<span class="k">Customers self-serve by default; reps place orders inside accounts</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. Today's agenda -->
-  <section class="slide">
-    <div class="container">
-      <div class="eyebrow">Today's agenda</div>
-      <h2>One hour. Three blocks. One next step.</h2>
+      <div class="eyebrow">Agenda</div>
+      <h2>What we'll cover today.</h2>
       <div class="agenda-list">
         <div class="agenda-item">
           <div class="n">1</div>
@@ -367,45 +355,171 @@
     </div>
   </section>
 
-  <!-- 6. Mutual Action Plan -->
+  <!-- 3. Strategic Objective -->
   <section class="slide">
     <div class="container">
-      <div class="eyebrow">Mutual Action Plan — working back from September 1, 2026</div>
-      <h2>Discover · Decide · Deliver</h2>
-      <div class="map-grid">
-        <div class="phase">
-          <div class="pname">Discover</div>
-          <div class="pdate">May 26 – June 5</div>
-          <ul>
-            <li>Today's tech discovery and tailored demo</li>
-            <li>Technical requirements doc completed by Ben-Ami</li>
-            <li>Avacon connector scope confirmed with Jeff</li>
-            <li>1–2 implementation partner candidates short-listed</li>
-          </ul>
-          <div class="target"><b>Exit gate:</b> Partner shortlist + plan decision direction (Advanced vs Plus).</div>
+      <div class="eyebrow">Strategic Objective</div>
+      <h2>Replace the rep-managed buying experience with a B2B portal that scales with Ben-Ami.</h2>
+      <p class="lead">Modern self-service for body shops and detail accounts, an ERP-native two-way connection to Microsoft Business Central, and the operational lift to absorb growth without expanding back-office labor — live before BFCM 2026.</p>
+      <div class="objective-grid">
+        <div class="objective-card accent">
+          <div class="label">For Ben-Ami</div>
+          <div class="body">Retain customers drifting to Amazon, eliminate manual order entry and AR chase work, and surface real-time account status to every customer.</div>
         </div>
-        <div class="phase">
-          <div class="pname">Decide</div>
-          <div class="pdate">June 8 – June 19</div>
-          <ul>
-            <li>Partner working sessions with Steven &amp; Matthew</li>
-            <li>SOW scoped on billable-hours basis with data logs</li>
-            <li>Shopify plan signed (Advanced or Plus)</li>
-            <li>Klaviyo tier finalized; tax tooling path chosen</li>
-          </ul>
-          <div class="target"><b>Exit gate:</b> Partner SOW signed, Shopify contract signed.</div>
+        <div class="objective-card accent">
+          <div class="label">For the customer</div>
+          <div class="body">An Amazon-quality buying experience inside the Ben-Ami portal — search, custom pricing, scan-to-order, and account visibility — open 24/7.</div>
         </div>
-        <div class="phase golive">
-          <div class="pname">Deliver</div>
-          <div class="pdate">June 22 – Sept 1</div>
-          <ul>
-            <li>Theme build &amp; data migration in parallel</li>
-            <li>Business Central ↔ Shopify integration certified by Avacon</li>
-            <li>UAT with top-20 customers, scan-to-order pilot</li>
-            <li>Soft launch, then hard launch</li>
-          </ul>
-          <div class="target"><b>Go-live:</b> <span style="color:var(--text)">September 1, 2026</span> — ahead of BFCM.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Business narrative -->
+  <section class="slide">
+    <div class="container">
+      <div class="eyebrow">What we've learned — Business</div>
+      <h2>The wholesale buyer has changed. Ben-Ami's commerce model needs to catch up.</h2>
+      <p class="narrative-lead">The buyers Ben-Ami sells to — body shop owners, detail shop managers, parts managers — are the <span class="hi">same people who order on Amazon at home</span>. They've stopped tolerating phone-and-text ordering, paper invoices, and waiting on a rep to confirm pricing. Steven sees it directly in the revenue mix: every covered SKU that shows up on Amazon is one Ben-Ami is no longer earning.</p>
+      <div class="trend-grid">
+        <div class="trend">
+          <div class="tlbl">Trend 01</div>
+          <div class="thead">B2B buyers expect Amazon-grade self-service</div>
+          <div class="tbody">"Make your system like Amazon's system" — Steven, in his own words. Search, account-aware pricing, 24/7 access, and scan-to-order are the table-stakes the rep model can't deliver.</div>
         </div>
+        <div class="trend">
+          <div class="tlbl">Trend 02</div>
+          <div class="thead">Channel leakage to consumer marketplaces is accelerating</div>
+          <div class="tbody">Top 20 accounts reorder weekly or bi-weekly on tight cycles. When the rep is the bottleneck, those buyers route to Amazon for the SKUs Ben-Ami already carries — and the relationship erodes one order at a time.</div>
+        </div>
+        <div class="trend">
+          <div class="tlbl">Trend 03</div>
+          <div class="thead">ERP-led commerce is the model going forward</div>
+          <div class="tbody">Avacon's Business Central rollout is 90–95% complete. Steven and Matthew have built the system of record first, and now need the buyer-facing layer to plug into it — not duplicate it.</div>
+        </div>
+      </div>
+      <div class="destination">
+        <div class="dlbl">Where Ben-Ami is going</div>
+        <div class="dbody">A self-service buying portal as the front door, reps in a higher-leverage role placing complex orders inside customer accounts, and the back office freed from manual order entry and AR collections. The lost year on the abandoned BigCommerce build has reset the timing — and made the September 1 go-live ahead of BFCM non-negotiable.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Technical & decisions -->
+  <section class="slide">
+    <div class="container">
+      <div class="eyebrow">What we've learned — Technical &amp; decisions locked in</div>
+      <h2>The technical foundation is largely in place, and the operating model is settled.</h2>
+      <div class="two-col">
+        <div class="col-card">
+          <div class="h">Stack &amp; integrations</div>
+          <ul>
+            <li>Microsoft Business Central — 90–95% complete<span class="k">Implemented by Avacon, will be system of record</span></li>
+            <li>ShipStation in place for logistics<span class="k">Stays on Shopify</span></li>
+            <li>Klaviyo on the shortlist for email &amp; SMS<span class="k">Tier and SMS decision still open</span></li>
+            <li>Replacing WooCommerce + Now Commerce<span class="k">BigCommerce build was abandoned; arbitration in motion</span></li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <div class="h">Decisions already made</div>
+          <ul>
+            <li>Partner engagement = billable hours with itemized data logs<span class="k">Settled — non-time-and-materials proposals will be declined</span></li>
+            <li>Matthew owns all internal data migration<span class="k">Partner doesn't need to learn the business deeply</span></li>
+            <li>Avacon owns the Business Central side of the integration<span class="k">Partner handles design + web build only</span></li>
+            <li>Hybrid order capture is non-negotiable<span class="k">Customers self-serve by default; reps place orders inside accounts</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Mutual Action Plan -->
+  <section class="slide map-slide">
+    <div class="container">
+      <div class="eyebrow">Tech Discovery Follow-up</div>
+      <h2>Mutual Action Plan</h2>
+      <p class="footnote">Ben-Ami Auto Care — prepared May 25, 2026</p>
+
+      <div class="map-evaluation">
+        <div class="elbl">The Business Evaluation</div>
+        <div class="ebody">Is Shopify Plus B2B the platform to replace Ben-Ami's rep-managed buying experience — turning 920 wholesale accounts into a self-service portal that plugs into Avacon's Business Central, eliminates manual order entry and AR chase work, and retains the customers drifting to Amazon — live before BFCM 2026?</div>
+      </div>
+
+      <div class="path-intro">
+        <h3>The path forward</h3>
+        <p>Built backwards from your September 1, 2026 go-live target, ahead of BFCM.</p>
+      </div>
+
+      <div class="map-section discover">
+        <div class="sec-label">Discover</div>
+        <div class="step done">
+          <div class="marker">✓</div>
+          <div class="body">
+            <div class="title-row"><span class="title">Initial discovery</span></div>
+            <div class="desc">Business goals, stack overview, key stakeholders, and Sept 1 go-live target confirmed.</div>
+          </div>
+          <div class="status">May 21, 2026 — Complete</div>
+        </div>
+        <div class="step today">
+          <div class="marker">2</div>
+          <div class="body">
+            <div class="title-row"><span class="title">Tech discovery &amp; tailored demo</span><span class="today-pill">Today</span></div>
+            <div class="desc">Architecture deep dive with Jeff St. Pierre; demo of a wholesale distributor on Business Central; partner shortlist direction.</div>
+          </div>
+          <div class="status">May 26, 2026 — In progress</div>
+        </div>
+      </div>
+
+      <div class="map-section decide">
+        <div class="sec-label">Decide — Next Steps to Schedule</div>
+        <div class="step">
+          <div class="marker">3</div>
+          <div class="body">
+            <div class="title-row"><span class="title">Partner introduction working session (1hr)</span></div>
+            <div class="desc">Shortlisted implementation partner walks through their billable-hours engagement model with itemized data logs, scoping approach, and BC integration ownership with Avacon.</div>
+          </div>
+          <div class="status">Early June 2026</div>
+        </div>
+        <div class="step">
+          <div class="marker">4</div>
+          <div class="body">
+            <div class="title-row"><span class="title">Plan decision + Klaviyo &amp; tax tooling path (1hr)</span></div>
+            <div class="desc">Shopify plan choice (Advanced vs Plus), Klaviyo tier + SMS decision, and tax tooling path finalized. Commercial picture starts forming.</div>
+          </div>
+          <div class="status">Mid June 2026</div>
+        </div>
+        <div class="step">
+          <div class="marker">5</div>
+          <div class="body">
+            <div class="title-row"><span class="title">Scoping &amp; commercials</span></div>
+            <div class="desc">Partner SOW scoped on billable-hours basis. Shopify platform pricing, Shopify Payments pricing, MSA + order form, partner SOW.</div>
+          </div>
+          <div class="status">Late June 2026</div>
+        </div>
+      </div>
+
+      <div class="map-section deliver">
+        <div class="sec-label">Deliver</div>
+        <div class="step">
+          <div class="marker">6</div>
+          <div class="body">
+            <div class="title-row"><span class="title">Implementation</span></div>
+            <div class="desc">Partner-led build — portal, custom pricing tiers, BC ↔ Shopify integration certified by Avacon, data migration owned by Matthew, scan-to-order pilot with top 20 accounts.</div>
+          </div>
+          <div class="status">July – August 2026</div>
+        </div>
+        <div class="step">
+          <div class="marker">7</div>
+          <div class="body">
+            <div class="title-row"><span class="title">Go live</span></div>
+            <div class="desc">Soft launch with top 20, then full cutover from WooCommerce + Now Commerce. Lands ahead of BFCM with runway for the holiday push.</div>
+          </div>
+          <div class="status">September 1, 2026</div>
+        </div>
+      </div>
+
+      <div class="map-footer">
+        <div class="prep">Prepared by Adrienne Borges, Senior Account Executive, Shopify</div>
+        <div class="note">Dates beyond today are working targets — locked in as scope is firmed up.</div>
       </div>
     </div>
   </section>
